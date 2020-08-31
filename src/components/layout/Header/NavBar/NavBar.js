@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import './NavBar.scss';
 import ROUTES from './../../../../constants/routes';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import userContext from '../../../../context/userContext';
 
 const NavBar = (props) => {
@@ -16,13 +16,13 @@ const NavBar = (props) => {
   };
   return (
     <nav className="NavBar">
-      <Link className="nav-link" to="/">Home</Link>
+      <NavLink className="nav-link" exact to="/">Home</NavLink>
       {(!userData.user) ?
         <>
-          <Link className="nav-link" to={ROUTES.LOGIN}>Login</Link>
-          <Link className="nav-link" to={ROUTES.SIGN_UP}>Register</Link>
+          <NavLink className="nav-link" to={ROUTES.LOGIN}>Login</NavLink>
+          <NavLink className="nav-link" to={ROUTES.SIGN_UP}>Register</NavLink>
         </> :
-        <button className="nav-link" onClick={logout}>Logout {userData.user.name}</button>
+        <NavLink className="nav-link" exact to={ROUTES.LOGIN} onClick={logout}>Logout {userData.user.name}</NavLink>
       }
     </nav>
   )
