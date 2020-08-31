@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react';
 import './Login.scss';
-import API_BASE_URL from './../../constants/constants';
-import { useHistory, Link, Redirect } from 'react-router-dom';
+import API_BASE_URL from '../../../constants/constants';
+import { useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
-import userContext from './../../context/userContext';
+import userContext from '../../../context/userContext';
 
 
 const Login = (props) => {

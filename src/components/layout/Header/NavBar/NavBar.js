@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import './NavBar.scss';
 import { Link } from 'react-router-dom';
-import userContext from './../../../context/userContext';
+import userContext from '../../../../context/userContext';
 
 const NavBar = (props) => {
   const { userData, setUserData } = useContext(userContext);

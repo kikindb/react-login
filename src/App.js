@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import userContext from './context/userContext';
-import Header from './components/Header/Header';
-import Login from './components/Login/Login';
-import Logout from './components/Logout/Logout';
-import Home from './components/Home/Home';
-import RegisterUser from './components/RegisterUser/RegisterUser';
+import Header from './components/layout/Header/Header';
+import Login from './components/pages/Login/Login';
+import Home from './components/pages/Home/Home';
+import RegisterUser from './components/pages/RegisterUser/RegisterUser';
 
 import './App.scss';
-import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import axios from 'axios';
 import API_BASE_URL from './constants/constants'
@@ -35,7 +34,6 @@ function App() {
             'x-auth-token': token
           }
         });
-        console.log(tokenRes.data);
 
         if (tokenRes.data) {
           setUserData({
@@ -64,9 +62,6 @@ function App() {
               </Route>
               <Route path='/register' exact={true}>
                 <RegisterUser />
-              </Route>
-              <Route path='/logout' exact={true}>
-                <Logout />
               </Route>
             </Switch>
           </div>
