@@ -1,3 +1,66 @@
-.App {
-  text-align: center;
+*, *::after, *::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.MainContent {
+  padding: 1.5rem;
+}
+
+input, select {
+  position: relative;
+  width: 100%;
+  border: 1px solid #ececec;
+  border-radius: 0.35rem;
+  padding: 1rem;
+}
+
+label {
+  position: relative;
+  color: #989898;
+}
+
+button[type="submit"] {
+  color: white;
+  background-color: red;
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 0.35rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: opacity 200ms ease-in-out;
+}
+
+button[type="submit"]:hover, 
+button[type="submit"]:focus {
+  opacity: 0.75;
+}
+
+a:link, a:visited {
+  color: red;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+@media screen and (min-width: 1024px) {
+  .MainContent {
+    margin: 0 auto;
+    max-width: 768px;
+  }
 }

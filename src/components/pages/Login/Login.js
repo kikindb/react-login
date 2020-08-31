@@ -77,7 +77,7 @@ const Login = (props) => {
               onChange={handleChange} />
           </label>
           <label htmlFor='password'>
-            Password:
+            Password
           <input type='password'
               id='password'
               name='password'
@@ -85,9 +85,9 @@ const Login = (props) => {
               value={state.password}
               onChange={handleChange} />
           </label>
-          <button>Sign in</button>
+          <button type="submit">Sign in</button>
         </form>
-        <Link to="/register">Register</Link>
+        <Link to={ROUTES.SIGN_UP}>Register</Link>
       </div>
       : <>{history.push(ROUTES.MAIN)}</>
   )

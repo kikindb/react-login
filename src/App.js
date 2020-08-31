@@ -54,17 +54,19 @@ function App() {
         <userContext.Provider value={{ userData, setUserData }}>
           <div className="App">
             <Header />
-            <Switch>
-              <Route path={ROUTES.LOGIN} exact={true}>
-                <Login />
-              </Route>
-              <Route path={ROUTES.MAIN} exact={true}>
-                <Home />
-              </Route>
-              <Route path={ROUTES.SIGN_UP} exact={true}>
-                <RegisterUser />
-              </Route>
-            </Switch>
+            <div className="MainContent">
+              <Switch>
+                <Route path={ROUTES.LOGIN} exact={true}>
+                  <Login />
+                </Route>
+                <Route path={ROUTES.MAIN} exact={true}>
+                  <Home />
+                </Route>
+                <Route path={ROUTES.SIGN_UP} exact={true}>
+                  <RegisterUser />
+                </Route>
+              </Switch>
+            </div>
           </div>
         </userContext.Provider>
       </Router>

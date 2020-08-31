@@ -1,6 +1,12 @@
 .Login {
+  text-align: center;
+  h1 {
+    margin-bottom: 4rem;
+  }
   form {
+    margin-bottom: 2rem;
     label {
+      text-align: left;
       display: block;
       margin: 1rem auto;
     }

@@ -16,13 +16,13 @@ const NavBar = (props) => {
   };
   return (
     <nav className="NavBar">
-      <Link to="/">Home</Link>
+      <Link className="nav-link" to="/">Home</Link>
       {(!userData.user) ?
         <>
-          <Link to={ROUTES.LOGIN}>Login</Link>
-          <Link to={ROUTES.SIGN_UP}>Register</Link>
+          <Link className="nav-link" to={ROUTES.LOGIN}>Login</Link>
+          <Link className="nav-link" to={ROUTES.SIGN_UP}>Register</Link>
         </> :
-        <button onClick={logout}>Logout {userData.user.name}</button>
+        <button className="nav-link" onClick={logout}>Logout {userData.user.name}</button>
       }
     </nav>
   )
