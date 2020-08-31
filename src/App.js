@@ -9,7 +9,7 @@ import './App.scss';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import axios from 'axios';
-import API_BASE_URL from './constants/constants'
+import { API_BASE_URL } from './constants/constants'
 
 function App() {
   const [userData, setUserData] = useState({

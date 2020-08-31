@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import './RegisterUser.scss';
-import API_BASE_URL from '../../../constants/constants';
+import { API_BASE_URL } from '../../../constants/constants';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import userContext from '../../../context/userContext';

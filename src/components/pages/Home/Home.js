@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import './Home.scss';
-import API_BASE_URL from '../../../constants/constants';
+import { API_BASE_URL } from '../../../constants/constants';
 import { useHistory } from 'react-router-dom';
 import userContext from '../../../context/userContext';
 
