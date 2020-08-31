@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import userContext from './context/userContext';
+import ROUTES from './constants/routes';
 import Header from './components/layout/Header/Header';
 import Login from './components/pages/Login/Login';
 import Home from './components/pages/Home/Home';
@@ -54,13 +55,13 @@ function App() {
           <div className="App">
             <Header />
             <Switch>
-              <Route path='/login' exact={true}>
+              <Route path={ROUTES.LOGIN} exact={true}>
                 <Login />
               </Route>
-              <Route path='/' exact={true}>
+              <Route path={ROUTES.MAIN} exact={true}>
                 <Home />
               </Route>
-              <Route path='/register' exact={true}>
+              <Route path={ROUTES.SIGN_UP} exact={true}>
                 <RegisterUser />
               </Route>
             </Switch>

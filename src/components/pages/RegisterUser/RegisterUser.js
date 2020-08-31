@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import './RegisterUser.scss';
 import { API_BASE_URL } from '../../../constants/constants';
+import ROUTES from './../../../constants/routes';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import userContext from '../../../context/userContext';
@@ -51,7 +52,7 @@ const RegisterUser = (props) => {
               token: response.headers['x-auth-token'],
               user: response.data
             });
-            history.push("/");
+            history.push(ROUTES.MAIN);
             //props.showError(null);
           } else {
             console.error("Some error ocurred.");
@@ -70,7 +71,7 @@ const RegisterUser = (props) => {
 
   return (
     <div className="RegisterUser">
-      <h1>Register Form</h1>
+      <h1>Sign Up</h1>
       <form onSubmit={registerUser}>
 
         <label htmlFor='name'>

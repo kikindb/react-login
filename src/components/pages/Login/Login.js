@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import './Login.scss';
-import { API_BASE_URL } from '../../../constants/constants';
+import ROUTES from './../../../constants/routes';
+import { API_BASE_URL } from './../../../constants/constants';
 import { useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 import userContext from '../../../context/userContext';
@@ -49,7 +50,7 @@ const Login = (props) => {
               token: response.headers['x-auth-token'],
               user: response.data
             });
-            history.push("/");
+            history.push(ROUTES.MAIN);
           } else {
             console.error("Some error ocurred.");
           }
@@ -64,6 +65,7 @@ const Login = (props) => {
   return (
     (!userData.user) ?
       <div className="Login">
+        <h1>Login</h1>
         <form onSubmit={login}>
           <label htmlFor='email'>
             Email
@@ -87,7 +89,7 @@ const Login = (props) => {
         </form>
         <Link to="/register">Register</Link>
       </div>
-      : <>{history.push('/')}</>
+      : <>{history.push(ROUTES.MAIN)}</>
   )
 };
 

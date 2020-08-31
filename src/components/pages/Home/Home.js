@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import './Home.scss';
+import ROUTES from './../../../constants/routes';
 import { API_BASE_URL } from '../../../constants/constants';
 import { useHistory } from 'react-router-dom';
 import userContext from '../../../context/userContext';
@@ -22,10 +23,7 @@ const Home = (props) => {
       </div >
     )
   } else {
-    return (
-
-      < div > Not Allowed{ history.push('/login')}</div >
-    );
+    return (<div> Not Allowed{ history.push(ROUTES.LOGIN)}</div>);
   }
   ;
 }
