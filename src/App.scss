@@ -57,6 +57,11 @@ button[type="submit"]:focus {
   opacity: 0.75;
 }
 
+button:disabled, button:disabled:hover {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 a:link, a:visited {
   color: $secondary-color;
   text-decoration: underline;

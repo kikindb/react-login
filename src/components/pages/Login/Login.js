@@ -7,10 +7,15 @@ import axios from 'axios';
 import userContext from '../../../context/userContext';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import FlashMessage from '../../layout/FlashMessage/FlashMessage';
 
 const Login = (props) => {
 
   const { userData, setUserData } = useContext(userContext);
+
+  const [state, setState] = useState({
+    error: ""
+  });
 
   const history = useHistory();
 
@@ -24,30 +29,49 @@ const Login = (props) => {
     password: Yup.string().required('Required')
   });
 
-  const onSubmit = values => {
-    if (values.email.length && values.password.length) {
-      const payload = {
-        "email": values.email,
-        "password": values.password,
+  const onSubmit = (values, onSubmitProps) => {
+    try {
+      if (values.email.length && values.password.length) {
+        const payload = {
+          "email": values.email,
+          "password": values.password,
+        }
+        let res;
+        axios.post(API_BASE_URL + '/api/auth', payload)
+          .then(function (response) {
+            if (response.status === 200) {
+              localStorage.setItem('userToken', response.headers['x-auth-token']);
+              setUserData({
+                token: response.headers['x-auth-token'],
+                user: response.data
+              });
+              history.push(ROUTES.MAIN);
+            } else {
+              console.error("Some error ocurred.");
+            }
+          })
+          .catch(function (error) {
+            setState(prevState => ({
+              ...prevState,
+              'error': "Connection Error Try Again Later"
+            }));
+            if (error.response) {
+              setState(prevState => ({
+                ...prevState,
+                'error': error.response.data
+              }));
+              /*console.log(error.response.data);
+              console.log(error.response.status);
+              console.log(error.response.headers);*/
+            }
+            onSubmitProps.setSubmitting(false);
+          });
+      } else {
+        console.log('Please enter valid username and password');
+        onSubmitProps.setSubmitting(false);
       }
-      axios.post(API_BASE_URL + '/api/auth', payload)
-        .then(function (response) {
-          if (response.status === 200) {
-            localStorage.setItem('userToken', response.headers['x-auth-token']);
-            setUserData({
-              token: response.headers['x-auth-token'],
-              user: response.data
-            });
-            history.push(ROUTES.MAIN);
-          } else {
-            console.error("Some error ocurred.");
-          }
-        })
-        .catch(function (error) {
-          console.error(new Error(error.message));
-        });
-    } else {
-      console.log('Please enter valid username and password');
+    } catch (error) {
+      console.error(new Error('Fatal Error'));
     }
   };
 
@@ -55,30 +79,41 @@ const Login = (props) => {
     (!userData.user) ?
       <div className="Login">
         <h1>Login</h1>
-        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
-          <Form>
-            <div className="form-group">
-              <Field type='email'
-                id='email'
-                name='email'
-                autoComplete="false"
-                placeholder=" "
-              />
-              <label htmlFor='email'>Email</label>
-              <span className="form-error"><ErrorMessage name='email' /></span>
-            </div>
-            <div className="form-group">
-              <Field type='password'
-                id='password'
-                name='password'
-                autoComplete="false"
-                placeholder=" "
-              />
-              <label htmlFor='password'>Password</label>
-              <span className="form-error"><ErrorMessage name='password' /></span>
-            </div>
-            <button type="submit">Sign in</button>
-          </Form>
+        <FlashMessage message={state.error} />
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={onSubmit}
+        >
+          {
+            formik => {
+              return (
+                <Form>
+                  <div className="form-group">
+                    <Field type='email'
+                      id='email'
+                      name='email'
+                      autoComplete="false"
+                      placeholder=" "
+                    />
+                    <label htmlFor='email'>Email</label>
+                    <span className="form-error"><ErrorMessage name='email' /></span>
+                  </div>
+                  <div className="form-group">
+                    <Field type='password'
+                      id='password'
+                      name='password'
+                      autoComplete="false"
+                      placeholder=" "
+                    />
+                    <label htmlFor='password'>Password</label>
+                    <span className="form-error"><ErrorMessage name='password' /></span>
+                  </div>
+                  <button type="submit" disabled={!(formik.dirty && formik.isValid) || (formik.isSubmitting)}>Sign in</button>
+                </Form>
+              );
+            }
+          }
         </Formik>
         <Link to={ROUTES.SIGN_UP}>Register</Link>
       </div >
