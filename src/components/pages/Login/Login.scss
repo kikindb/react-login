@@ -3,26 +3,4 @@
   h1 {
     margin-bottom: 4rem;
   }
-  form {
-    margin-bottom: 2rem;
-    label {
-      position: absolute;
-      top: 1rem;
-      left: 1rem;
-      color: red;
-      text-align: left;
-      display: block;
-      background-color: white;
-      transition: all 250ms ease;
-    }
-    input:focus + label, 
-    input:hover + label,
-    input:not(:placeholder-shown) + label {
-      transform: translateY(-1.5rem);
-    }
-  }
-  .form-group {
-    position: relative;
-    margin-bottom: 1rem;
-  }
 }

@@ -22,19 +22,20 @@ body {
 input, select {
   position: relative;
   width: 100%;
-  border: 1px solid #ececec;
+  border: 1px solid #6d6d6d;
   border-radius: 0.35rem;
   padding: 1rem;
   outline: none;
   transition: all 150ms ease;
 }
+
 input:focus, select:focus {
   border: 1.5px solid $accent-color;
 }
 
 label {
   position: relative;
-  color: #989898;
+  color: #6d6d6d;
   font-weight: 500;
 }
 
@@ -72,9 +73,31 @@ a:hover {
   text-decoration: none;
 }
 
+.form-group {
+  position: relative;
+  margin-bottom: 1rem;
+  label {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    text-align: left;
+    display: block;
+    background-color: white;
+    transition: all 100ms ease;
+    padding: 0 0.25rem;
+  }
+  input:focus + label,
+  input:not(:placeholder-shown) + label {
+    transform: translateY(-1.5rem);
+  }
+  input:focus + label {
+    color: $accent-color;
+  }
+}
+
 .form-error {
   text-align: left;
-  color: $accent-color;
+  color: $danger-color;
   display: block;
   margin: 0.25rem 0;
   font-size: 0.75rem;
@@ -86,4 +109,12 @@ a:hover {
     margin: 0 auto;
     max-width: 768px;
   }
+}
+
+/* Change the white to any color ;) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px $background-color inset !important;
 }

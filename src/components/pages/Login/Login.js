@@ -11,13 +11,13 @@ import FlashMessage from '../../layout/FlashMessage/FlashMessage';
 
 const Login = (props) => {
 
+  const history = useHistory();
+
   const { userData, setUserData } = useContext(userContext);
 
   const [state, setState] = useState({
     error: ""
   });
-
-  const history = useHistory();
 
   const initialValues = {
     email: '',
@@ -31,6 +31,9 @@ const Login = (props) => {
 
   const onSubmit = (values, onSubmitProps) => {
     try {
+      setState({
+        'error': ''
+      });
       if (values.email.length && values.password.length) {
         const payload = {
           "email": values.email,
@@ -51,15 +54,13 @@ const Login = (props) => {
             }
           })
           .catch(function (error) {
-            setState(prevState => ({
-              ...prevState,
+            setState({
               'error': "Connection Error Try Again Later"
-            }));
+            });
             if (error.response) {
-              setState(prevState => ({
-                ...prevState,
+              setState({
                 'error': error.response.data
-              }));
+              });
               /*console.log(error.response.data);
               console.log(error.response.status);
               console.log(error.response.headers);*/
@@ -79,7 +80,9 @@ const Login = (props) => {
     (!userData.user) ?
       <div className="Login">
         <h1>Login</h1>
-        <FlashMessage message={state.error} />
+
+        {(state.error !== "") ? <FlashMessage message={state.error} visible={true} /> : null}
+
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}

@@ -5,40 +5,46 @@ import ROUTES from './../../../constants/routes';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import userContext from '../../../context/userContext';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import FlashMessage from '../../layout/FlashMessage/FlashMessage';
 
 const RegisterUser = (props) => {
+
+  const history = useHistory();
 
   const { userData, setUserData } = useContext(userContext);
 
   const [state, setState] = useState({
-    name: "",
-    lastName: "",
-    email: "",
-    password: ""
+    error: '',
+    name: '',
+    lastName: '',
+    email: '',
+    password: ''
   });
 
-  const history = useHistory();
+  const initialValues = {
+    name: '',
+    lastName: '',
+    email: '',
+    password: ''
+  };
 
-  const handleChange = (e) => {
-    const { id, value } = e.target
-    setState(prevState => ({
-      ...prevState,
-      [id]: value
-    }));
-  }
+  const validationSchema = Yup.object({
+    name: Yup.string(),
+    lastName: Yup.string(),
+    email: Yup.string().required('Required').email('Invalid email format'),
+    password: Yup.string().required('Required')
+  });
 
-  const registerUser = (e) => {
-    e.preventDefault();
-    console.log(state.email);
-    console.log(state.password);
-    console.log(API_BASE_URL);
-    if (state.name.length && state.lastName.length && state.email.length && state.password.length) {
+  const onSubmit = (values, onSubmitProps) => {
+    if (values.name.length && values.lastName.length && values.email.length && values.password.length) {
       //props.showError(null);
       const payload = {
-        "name": state.name,
-        "lastName": state.lastName,
-        "email": state.email,
-        "password": state.password,
+        "name": values.name,
+        "lastName": values.lastName,
+        "email": values.email,
+        "password": values.password,
       }
       axios.post(API_BASE_URL + '/api/users', payload)
         .then(function (response) {
@@ -53,65 +59,80 @@ const RegisterUser = (props) => {
               user: response.data
             });
             history.push(ROUTES.MAIN);
-            //props.showError(null);
           } else {
             console.error("Some error ocurred.");
-            //props.showError("Some error ocurred");
           }
         })
         .catch(function (error) {
           console.error(new Error(error.message));
-          //alert(error.message);
         });
     } else {
-      //props.showError('Please enter valid username and password');
       console.log('Please enter valid username and password');
     }
-  }
+  };
+
 
   return (
     <div className="RegisterUser">
       <h1>Sign Up</h1>
-      <form onSubmit={registerUser}>
 
-        <label htmlFor='name'>
-          Name:
-          <input type='text'
-            id='name'
-            name='name'
-            placeholder="Enter name"
-            value={state.name}
-            onChange={handleChange} />
-        </label>
-        <label htmlFor='lastName'>
-          Last Name:
-          <input type='text'
-            id='lastName'
-            name='lastName'
-            placeholder="Enter Last Name"
-            value={state.lastName}
-            onChange={handleChange} />
-        </label>
-        <label htmlFor='email'>
-          Email:
-          <input type='email'
-            id='email'
-            name='email'
-            placeholder="Enter email"
-            value={state.email}
-            onChange={handleChange} />
-        </label>
-        <label htmlFor='password'>
-          Password:
-          <input type='password'
-            id='password'
-            name='password'
-            placeholder="Password"
-            value={state.password}
-            onChange={handleChange} />
-        </label>
-        <button type="submit">Register</button>
-      </form>
+      {(state.error !== "") ? <FlashMessage message={state.error} visible={true} /> : null}
+
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={onSubmit}
+      >
+        {
+          formik => {
+            return (
+              <Form>
+
+                <div className="form-group">
+                  <Field type='text'
+                    id='name'
+                    name='name'
+                    placeholder=' '
+                  />
+                  <label htmlFor='name'>Name</label>
+                  <span className="form-error"><ErrorMessage name='name' /></span>
+                </div>
+
+                <div className="form-group">
+                  <Field type='text'
+                    id='lastName'
+                    name='lastName'
+                    placeholder=' '
+                  />
+                  <label htmlFor='lastName'>Last Name</label>
+                  <span className="form-error"><ErrorMessage name='lastName' /></span>
+                </div>
+
+                <div className="form-group">
+                  <Field type='email'
+                    id='email'
+                    name='email'
+                    placeholder=' '
+                  />
+                  <label htmlFor='email'>Email</label>
+                  <span className="form-error"><ErrorMessage name='email' /></span>
+                </div>
+
+                <div className="form-group">
+                  <Field type='password'
+                    id='password'
+                    name='password'
+                    placeholder=' '
+                  />
+                  <label htmlFor='password'>Password</label>
+                  <span className="form-error"><ErrorMessage name='password' /></span>
+                </div>
+
+                <button type="submit" disabled={!(formik.dirty && formik.isValid) || (formik.isSubmitting)}>Register</button>
+              </Form>);
+          }
+        }
+      </Formik>
     </div>
   )
 }
