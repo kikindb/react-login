@@ -6,57 +6,34 @@ import { useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 import userContext from '../../../context/userContext';
 import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 
 const Login = (props) => {
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: ''
-    },
-    onSubmit: values => {
-      console.log(values);
-    },
-    validate: values => {
-      let errors = {};
-      return errors;
-    }
-  });
-  const { userData, setUserData } = useContext(userContext);
 
-  const [state, setState] = useState({
-    email: "",
-    password: ""
-  });
+  const { userData, setUserData } = useContext(userContext);
 
   const history = useHistory();
 
-  const handleChange = (e) => {
-    const { id, value } = e.target
-    setState(prevState => ({
-      ...prevState,
-      [id]: value
-    }));
-  }
+  const initialValues = {
+    email: '',
+    password: ''
+  };
 
-  const login = (e) => {
-    e.preventDefault();
-    sendDetailsToServer();
-  }
+  const validationSchema = Yup.object({
+    email: Yup.string().required('Required').email('Invalid email format'),
+    password: Yup.string().required('Required')
+  });
 
-  const sendDetailsToServer = () => {
-    if (state.email.length && state.password.length) {
+  const onSubmit = values => {
+    if (values.email.length && values.password.length) {
       const payload = {
-        "email": state.email,
-        "password": state.password,
+        "email": values.email,
+        "password": values.password,
       }
       axios.post(API_BASE_URL + '/api/auth', payload)
         .then(function (response) {
           if (response.status === 200) {
-            setState(prevState => ({
-              ...prevState,
-              'successMessage': 'Login successful. Redirecting to home page..'
-            }));
             localStorage.setItem('userToken', response.headers['x-auth-token']);
             setUserData({
               token: response.headers['x-auth-token'],
@@ -73,7 +50,14 @@ const Login = (props) => {
     } else {
       console.log('Please enter valid username and password');
     }
-  }
+  };
+
+  const formik = useFormik({
+    initialValues,
+    onSubmit,
+    validationSchema
+  });
+
   return (
     (!userData.user) ?
       <div className="Login">
@@ -90,7 +74,8 @@ const Login = (props) => {
               onBlur={formik.handleBlur} />
             <label htmlFor='email'>Email</label>
             {formik.touched.email && formik.errors.email ?
-              <span className="form-error">{formik.errors.email}</span> : null}
+              <span className="form-error">{formik.errors.email}</span> :
+              null}
           </div>
           <div className="form-group">
             <input type='password'
@@ -99,8 +84,12 @@ const Login = (props) => {
               autoComplete="false"
               value={formik.values.password}
               placeholder=" "
+              onBlur={formik.handleBlur}
               onChange={formik.handleChange} />
             <label htmlFor='password'>Password</label>
+            {formik.touched.password && formik.errors.password ?
+              <span className="form-error">{formik.errors.password}</span> :
+              null}
           </div>
           <button type="submit">Sign in</button>
         </form>
