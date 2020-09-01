@@ -1,3 +1,5 @@
+@import './styles/colors';
+
 *, *::after, *::before {
   margin: 0;
   padding: 0;
@@ -9,6 +11,7 @@ html {
 }
 
 body {
+  background-color: $background-color;
   font-family: Helvetica, Arial, sans-serif;
 }
 
@@ -22,6 +25,11 @@ input, select {
   border: 1px solid #ececec;
   border-radius: 0.35rem;
   padding: 1rem;
+  outline: none;
+  transition: all 150ms ease;
+}
+input:focus, select:focus {
+  border: 1.5px solid $accent-color;
 }
 
 label {
@@ -31,7 +39,7 @@ label {
 
 button[type="submit"] {
   color: white;
-  background-color: red;
+  background-color: $secondary-color;
   width: 100%;
   padding: 1rem;
   border: none;
@@ -49,7 +57,7 @@ button[type="submit"]:focus {
 }
 
 a:link, a:visited {
-  color: red;
+  color: $secondary-color;
   text-decoration: underline;
   cursor: pointer;
 }

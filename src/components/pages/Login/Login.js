@@ -5,10 +5,19 @@ import { API_BASE_URL } from './../../../constants/constants';
 import { useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 import userContext from '../../../context/userContext';
+import { useFormik } from 'formik';
 
 
 const Login = (props) => {
-
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: ''
+    },
+    onSubmit: values => {
+      console.log(values);
+    }
+  });
   const { userData, setUserData } = useContext(userContext);
 
   const [state, setState] = useState({
@@ -33,7 +42,6 @@ const Login = (props) => {
 
   const sendDetailsToServer = () => {
     if (state.email.length && state.password.length) {
-      //props.showError(null);
       const payload = {
         "email": state.email,
         "password": state.password,
@@ -67,24 +75,26 @@ const Login = (props) => {
       <div className="Login">
         <h1>Login</h1>
         <form onSubmit={login}>
-          <label htmlFor='email'>
-            Email
-          <input type='email'
+          <div className="form-group">
+            <input type='email'
               id='email'
               name='email'
-              placeholder="Enter email"
+              autoComplete="false"
               value={state.email}
+              placeholder=" "
               onChange={handleChange} />
-          </label>
-          <label htmlFor='password'>
-            Password
-          <input type='password'
+            <label htmlFor='email'>Email</label>
+          </div>
+          <div className="form-group">
+            <input type='password'
               id='password'
               name='password'
-              placeholder="Password"
+              autoComplete="false"
               value={state.password}
+              placeholder=" "
               onChange={handleChange} />
-          </label>
+            <label htmlFor='password'>Password</label>
+          </div>
           <button type="submit">Sign in</button>
         </form>
         <Link to={ROUTES.SIGN_UP}>Register</Link>

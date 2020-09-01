@@ -1,6 +1,7 @@
+@import './../../../styles/colors';
 .Header {
   color: white;
-  background-color: red;
+  background-color: $primary-color;
   margin-bottom: 2rem;
   padding: 1.5rem;
   border-radius: 0px 0px 1.33rem 1.33rem;
