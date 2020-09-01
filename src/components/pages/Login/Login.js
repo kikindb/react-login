@@ -16,6 +16,10 @@ const Login = (props) => {
     },
     onSubmit: values => {
       console.log(values);
+    },
+    validate: values => {
+      let errors = {};
+      return errors;
     }
   });
   const { userData, setUserData } = useContext(userContext);
@@ -74,31 +78,34 @@ const Login = (props) => {
     (!userData.user) ?
       <div className="Login">
         <h1>Login</h1>
-        <form onSubmit={login}>
+        <form onSubmit={formik.handleSubmit}>
           <div className="form-group">
             <input type='email'
               id='email'
               name='email'
               autoComplete="false"
-              value={state.email}
+              value={formik.values.email}
               placeholder=" "
-              onChange={handleChange} />
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur} />
             <label htmlFor='email'>Email</label>
+            {formik.touched.email && formik.errors.email ?
+              <span className="form-error">{formik.errors.email}</span> : null}
           </div>
           <div className="form-group">
             <input type='password'
               id='password'
               name='password'
               autoComplete="false"
-              value={state.password}
+              value={formik.values.password}
               placeholder=" "
-              onChange={handleChange} />
+              onChange={formik.handleChange} />
             <label htmlFor='password'>Password</label>
           </div>
           <button type="submit">Sign in</button>
         </form>
         <Link to={ROUTES.SIGN_UP}>Register</Link>
-      </div>
+      </div >
       : <>{history.push(ROUTES.MAIN)}</>
   )
 };
