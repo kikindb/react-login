@@ -5,9 +5,8 @@ import { API_BASE_URL } from './../../../constants/constants';
 import { useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 import userContext from '../../../context/userContext';
-import { useFormik } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-
 
 const Login = (props) => {
 
@@ -52,52 +51,39 @@ const Login = (props) => {
     }
   };
 
-  const formik = useFormik({
-    initialValues,
-    onSubmit,
-    validationSchema
-  });
-
   return (
     (!userData.user) ?
       <div className="Login">
         <h1>Login</h1>
-        <form onSubmit={formik.handleSubmit}>
-          <div className="form-group">
-            <input type='email'
-              id='email'
-              name='email'
-              autoComplete="false"
-              value={formik.values.email}
-              placeholder=" "
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur} />
-            <label htmlFor='email'>Email</label>
-            {formik.touched.email && formik.errors.email ?
-              <span className="form-error">{formik.errors.email}</span> :
-              null}
-          </div>
-          <div className="form-group">
-            <input type='password'
-              id='password'
-              name='password'
-              autoComplete="false"
-              value={formik.values.password}
-              placeholder=" "
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange} />
-            <label htmlFor='password'>Password</label>
-            {formik.touched.password && formik.errors.password ?
-              <span className="form-error">{formik.errors.password}</span> :
-              null}
-          </div>
-          <button type="submit">Sign in</button>
-        </form>
+        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
+          <Form>
+            <div className="form-group">
+              <Field type='email'
+                id='email'
+                name='email'
+                autoComplete="false"
+                placeholder=" "
+              />
+              <label htmlFor='email'>Email</label>
+              <span className="form-error"><ErrorMessage name='email' /></span>
+            </div>
+            <div className="form-group">
+              <Field type='password'
+                id='password'
+                name='password'
+                autoComplete="false"
+                placeholder=" "
+              />
+              <label htmlFor='password'>Password</label>
+              <span className="form-error"><ErrorMessage name='password' /></span>
+            </div>
+            <button type="submit">Sign in</button>
+          </Form>
+        </Formik>
         <Link to={ROUTES.SIGN_UP}>Register</Link>
       </div >
       : <>{history.push(ROUTES.MAIN)}</>
   )
 };
-
 
 export default Login;
