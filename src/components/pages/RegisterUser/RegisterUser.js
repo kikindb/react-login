@@ -31,15 +31,17 @@ const RegisterUser = (props) => {
   };
 
   const validationSchema = Yup.object({
-    name: Yup.string(),
-    lastName: Yup.string(),
+    name: Yup.string().min(2),
+    lastName: Yup.string().min(2),
     email: Yup.string().required('Required').email('Invalid email format'),
-    password: Yup.string().required('Required')
+    password: Yup.string().required('Required').min(5)
   });
 
   const onSubmit = (values, onSubmitProps) => {
+    setState({
+      'error': ''
+    });
     if (values.name.length && values.lastName.length && values.email.length && values.password.length) {
-      //props.showError(null);
       const payload = {
         "name": values.name,
         "lastName": values.lastName,
@@ -65,12 +67,20 @@ const RegisterUser = (props) => {
         })
         .catch(function (error) {
           console.error(new Error(error.message));
+          setState({
+            'error': "Connection Error Try Again Later"
+          });
+          if (error.response) {
+            setState({
+              'error': error.response.data
+            });
+          }
+          onSubmitProps.setSubmitting(false);
         });
     } else {
       console.log('Please enter valid username and password');
     }
   };
-
 
   return (
     <div className="RegisterUser">
@@ -83,54 +93,56 @@ const RegisterUser = (props) => {
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
-        {
-          formik => {
-            return (
-              <Form>
+        {formik => {
+          return (
+            <Form>
+              <div className="form-group">
+                <Field type='text'
+                  id='name'
+                  name='name'
+                  placeholder=' '
+                  autoComplete="given-name"
+                />
+                <label htmlFor='name'>Name</label>
+                <span className="form-error"><ErrorMessage name='name' /></span>
+              </div>
 
-                <div className="form-group">
-                  <Field type='text'
-                    id='name'
-                    name='name'
-                    placeholder=' '
-                  />
-                  <label htmlFor='name'>Name</label>
-                  <span className="form-error"><ErrorMessage name='name' /></span>
-                </div>
+              <div className="form-group">
+                <Field type='text'
+                  id='lastName'
+                  name='lastName'
+                  placeholder=' '
+                  autoComplete="family-name"
+                />
+                <label htmlFor='lastName'>Last Name</label>
+                <span className="form-error"><ErrorMessage name='lastName' /></span>
+              </div>
 
-                <div className="form-group">
-                  <Field type='text'
-                    id='lastName'
-                    name='lastName'
-                    placeholder=' '
-                  />
-                  <label htmlFor='lastName'>Last Name</label>
-                  <span className="form-error"><ErrorMessage name='lastName' /></span>
-                </div>
+              <div className="form-group">
+                <Field type='email'
+                  id='email'
+                  name='email'
+                  placeholder=' '
+                  autoComplete="email"
+                />
+                <label htmlFor='email'>Email</label>
+                <span className="form-error"><ErrorMessage name='email' /></span>
+              </div>
 
-                <div className="form-group">
-                  <Field type='email'
-                    id='email'
-                    name='email'
-                    placeholder=' '
-                  />
-                  <label htmlFor='email'>Email</label>
-                  <span className="form-error"><ErrorMessage name='email' /></span>
-                </div>
+              <div className="form-group">
+                <Field type='password'
+                  id='password'
+                  name='password'
+                  placeholder=' '
+                  autoComplete="new-password"
+                />
+                <label htmlFor='password'>Password</label>
+                <span className="form-error"><ErrorMessage name='password' /></span>
+              </div>
 
-                <div className="form-group">
-                  <Field type='password'
-                    id='password'
-                    name='password'
-                    placeholder=' '
-                  />
-                  <label htmlFor='password'>Password</label>
-                  <span className="form-error"><ErrorMessage name='password' /></span>
-                </div>
-
-                <button type="submit" disabled={!(formik.dirty && formik.isValid) || (formik.isSubmitting)}>Register</button>
-              </Form>);
-          }
+              <button type="submit" disabled={!(formik.dirty && formik.isValid) || (formik.isSubmitting)}>Register</button>
+            </Form>);
+        }
         }
       </Formik>
     </div>

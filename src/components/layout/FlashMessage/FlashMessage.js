@@ -26,8 +26,11 @@ const FlashMessage = props => {
   if (flashData.message && flashData.visible) {
     return (
       <div className="FlashMessage">
-        {props.message}
-        <button onClick={handleClick}>x</button>
+        <div className="message">
+          <h2>Uh Oh, Something went wrong</h2>
+          <p>{props.message}</p>
+        </div>
+        <button onClick={handleClick}>&times;</button>
       </div >
     );
   } else {

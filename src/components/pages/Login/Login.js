@@ -39,7 +39,6 @@ const Login = (props) => {
           "email": values.email,
           "password": values.password,
         }
-        let res;
         axios.post(API_BASE_URL + '/api/auth', payload)
           .then(function (response) {
             if (response.status === 200) {
@@ -50,7 +49,10 @@ const Login = (props) => {
               });
               history.push(ROUTES.MAIN);
             } else {
-              console.error("Some error ocurred.");
+              console.error("Some error ocurred");
+              setState({
+                'error': "Some error ocurred"
+              });
             }
           })
           .catch(function (error) {
@@ -61,9 +63,6 @@ const Login = (props) => {
               setState({
                 'error': error.response.data
               });
-              /*console.log(error.response.data);
-              console.log(error.response.status);
-              console.log(error.response.headers);*/
             }
             onSubmitProps.setSubmitting(false);
           });
@@ -96,7 +95,7 @@ const Login = (props) => {
                     <Field type='email'
                       id='email'
                       name='email'
-                      autoComplete="false"
+                      autoComplete="email"
                       placeholder=" "
                     />
                     <label htmlFor='email'>Email</label>
@@ -106,7 +105,7 @@ const Login = (props) => {
                     <Field type='password'
                       id='password'
                       name='password'
-                      autoComplete="false"
+                      autoComplete="current-password"
                       placeholder=" "
                     />
                     <label htmlFor='password'>Password</label>

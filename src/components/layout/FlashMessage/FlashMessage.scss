@@ -6,8 +6,31 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  margin: 1rem auto;
+  margin: 2rem auto;
   border-radius: 10px;
-  color: white;
-  background-color: $danger-color;
+  color: #67696E;
+  background-color: white;
+  box-shadow: 0 0 8px #BFC5C1;
+  text-align: left;
+  .message {
+    border-left: 5px solid $danger-color;
+    padding-left: 1rem;
+  }
+  h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: #173429;
+  }
+  button {
+    background-color: transparent;
+    border: none;
+    line-height: 0;
+    color: #67696E;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: opacity 50ms ease-in-out;
+  }
+  button:hover {
+    opacity: 0.5;
+  }
 }
