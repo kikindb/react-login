@@ -62,7 +62,7 @@ const FacebookLogin = (props) => {
   };
   return (
     <div className="FacebookLogin">
-      <button className="facebook-btn" onClick={facebookLogin}>Enter with Facebook</button>
+      <button className="facebook-btn" onClick={facebookLogin}>Continue with Facebook</button>
     </div>
   )
 }

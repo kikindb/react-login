@@ -44,9 +44,10 @@ button[type="submit"] {
   transition: opacity 200ms ease-in-out;
 }
 
-button[type="submit"]:hover, 
-button[type="submit"]:focus {
-  opacity: 0.75;
+button:hover, 
+button:focus {
+  opacity: 0.85;
+  box-shadow: 0 0 8px $secondary-color;
 }
 
 button:disabled, button:disabled:hover {

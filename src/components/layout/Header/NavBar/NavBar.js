@@ -18,14 +18,14 @@ const NavBar = (props) => {
     <nav className="NavBar">
       {(!userData.user) ?
         <>
-          <NavLink className="nav-link" to={ROUTES.LOGIN}>Login</NavLink>
-          <NavLink className="nav-link" to={ROUTES.SIGN_UP}>Register</NavLink>
+          <NavLink className="nav-link" to={ROUTES.LOGIN}><span>Login</span></NavLink>
+          <NavLink className="nav-link" to={ROUTES.SIGN_UP}><span>Register</span></NavLink>
         </> :
         <>
-          <NavLink className="nav-link" exact to="/">Home</NavLink>
+          <NavLink className="nav-link" exact to="/"><span>Home</span></NavLink>
           <NavLink className="nav-link" exact to={ROUTES.LOGIN} onClick={logout}>
             <img src={userData.user.picture} />
-            Logout {userData.user.name}
+            <span>{userData.user.name}</span>
           </NavLink>
         </>
       }
