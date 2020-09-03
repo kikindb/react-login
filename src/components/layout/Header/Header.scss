@@ -2,14 +2,19 @@
 .Header {
   color: white;
   background-color: $primary-color;
-  margin-bottom: 1rem;
   padding: 0.75rem;
   border-radius: 0px 0px 2rem 2rem;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  align-items: center;
   box-shadow: 0 0 12px $primary-color;
+  max-width: 1440px;
+  margin: 0 auto 1.5rem;
+  .header-container {
+    margin: 0 auto;
+    max-width: 1280px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
   a.site-title {
     color: white;
     text-decoration: none;

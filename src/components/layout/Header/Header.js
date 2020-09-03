@@ -8,10 +8,12 @@ import { APP_NAME } from './../../../constants/constants';
 const Header = (props) => {
   return (
     <header className="Header">
-      <Link className="site-title" to={ROUTES.MAIN}>
-        {APP_NAME}
-      </Link>
-      <NavBar />
+      <div className="header-container">
+        <Link className="site-title" to={ROUTES.MAIN}>
+          {APP_NAME}
+        </Link>
+        <NavBar />
+      </div>
     </header>
   )
 }
