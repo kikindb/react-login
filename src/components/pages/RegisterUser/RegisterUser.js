@@ -9,6 +9,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import FlashMessage from '../../layout/FlashMessage/FlashMessage';
 import signUpImg from './../../../assets/signup.svg'
+import FacebookLogin from './../../layout/FacebookLogin/FacebookLogin';
+
 const RegisterUser = (props) => {
 
   const history = useHistory();
@@ -152,6 +154,7 @@ const RegisterUser = (props) => {
           }
           }
         </Formik>
+        <FacebookLogin />
       </section>
     </div>
   )

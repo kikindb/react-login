@@ -9,6 +9,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import FlashMessage from '../../layout/FlashMessage/FlashMessage';
 import LoginImg from './../../../assets/login.svg';
+import FacebookLogin from '../../layout/FacebookLogin/FacebookLogin';
 
 const Login = (props) => {
 
@@ -125,6 +126,7 @@ const Login = (props) => {
               }
             }
           </Formik>
+          <FacebookLogin />
           <Link to={ROUTES.SIGN_UP}>Register</Link>
         </section>
       </div >
