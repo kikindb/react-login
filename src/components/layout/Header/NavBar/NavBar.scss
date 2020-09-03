@@ -16,10 +16,6 @@
     padding: 0.5rem 0.75rem;
     border-radius: 0.75rem;
     margin: 0 0.25rem;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    max-width: 180px;
     img {
       width: 100%;
       max-width: 35px;
@@ -27,8 +23,12 @@
       margin-right: 8px;
     }
     span {
+      max-width: 113px;
       line-height: 35px;
       display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
     img, span {
       vertical-align: middle;
