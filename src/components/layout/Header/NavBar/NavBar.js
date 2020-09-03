@@ -23,7 +23,10 @@ const NavBar = (props) => {
         </> :
         <>
           <NavLink className="nav-link" exact to="/">Home</NavLink>
-          <NavLink className="nav-link" exact to={ROUTES.LOGIN} onClick={logout}>Logout {userData.user.name}</NavLink>
+          <NavLink className="nav-link" exact to={ROUTES.LOGIN} onClick={logout}>
+            <img src={userData.user.picture} />
+            Logout {userData.user.name}
+          </NavLink>
         </>
       }
     </nav>

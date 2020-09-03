@@ -10,7 +10,7 @@ import './App.scss';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import axios from 'axios';
-import { API_BASE_URL } from './constants/constants'
+import { API_FULL_URL } from './constants/constants'
 
 function App() {
 
@@ -31,7 +31,7 @@ function App() {
         localStorage.setItem('userToken', '');
         token = '';
       } else if (token !== '') {
-        const tokenRes = await axios.get(API_BASE_URL + '/api/users/me', {
+        const tokenRes = await axios.get(API_FULL_URL + '/users/me', {
           headers: {
             'x-auth-token': token
           }

@@ -55,7 +55,6 @@ const FacebookLogin = (props) => {
               setState({
                 'error': error.response.data
               });
-              history.push('/register');
             }
           });
       });
