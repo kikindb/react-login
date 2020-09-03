@@ -8,6 +8,7 @@ import userContext from '../../../context/userContext';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import FlashMessage from '../../layout/FlashMessage/FlashMessage';
+import LoginImg from './../../../assets/login.svg';
 
 const Login = (props) => {
 
@@ -78,46 +79,54 @@ const Login = (props) => {
   return (
     (!userData.user) ?
       <div className="Login">
-        <h1>Login</h1>
+        <section className="img-container">
+          <img src={LoginImg} alt="" />
+        </section>
+        <section className='form-container'>
+          <h1>
+            Welcome!
+          <span>Please login to your account</span>
+          </h1>
 
-        {(state.error !== "") ? <FlashMessage message={state.error} visible={true} /> : null}
+          {(state.error !== "") ? <FlashMessage message={state.error} visible={true} /> : null}
 
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={onSubmit}
-        >
-          {
-            formik => {
-              return (
-                <Form>
-                  <div className="form-group">
-                    <Field type='email'
-                      id='email'
-                      name='email'
-                      autoComplete="email"
-                      placeholder=" "
-                    />
-                    <label htmlFor='email'>Email</label>
-                    <span className="form-error"><ErrorMessage name='email' /></span>
-                  </div>
-                  <div className="form-group">
-                    <Field type='password'
-                      id='password'
-                      name='password'
-                      autoComplete="current-password"
-                      placeholder=" "
-                    />
-                    <label htmlFor='password'>Password</label>
-                    <span className="form-error"><ErrorMessage name='password' /></span>
-                  </div>
-                  <button type="submit" disabled={!(formik.dirty && formik.isValid) || (formik.isSubmitting)}>Sign in</button>
-                </Form>
-              );
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+          >
+            {
+              formik => {
+                return (
+                  <Form>
+                    <div className="form-group">
+                      <Field type='email'
+                        id='email'
+                        name='email'
+                        autoComplete="email"
+                        placeholder=" "
+                      />
+                      <label htmlFor='email'>Email</label>
+                      <span className="form-error"><ErrorMessage name='email' /></span>
+                    </div>
+                    <div className="form-group">
+                      <Field type='password'
+                        id='password'
+                        name='password'
+                        autoComplete="current-password"
+                        placeholder=" "
+                      />
+                      <label htmlFor='password'>Password</label>
+                      <span className="form-error"><ErrorMessage name='password' /></span>
+                    </div>
+                    <button type="submit" disabled={!(formik.dirty && formik.isValid) || (formik.isSubmitting)}>Sign in</button>
+                  </Form>
+                );
+              }
             }
-          }
-        </Formik>
-        <Link to={ROUTES.SIGN_UP}>Register</Link>
+          </Formik>
+          <Link to={ROUTES.SIGN_UP}>Register</Link>
+        </section>
       </div >
       : <>{history.push(ROUTES.MAIN)}</>
   )

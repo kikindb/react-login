@@ -16,7 +16,9 @@ body {
 }
 
 .MainContent {
-  padding: 1.5rem;
+  padding: 0 1rem;
+  max-width: 1280px;
+  margin: 0 auto 1rem;
 }
 
 input, select {
@@ -102,13 +104,6 @@ a:hover {
   margin: 0.25rem 0;
   font-size: 0.75rem;
   transition: all 100ms ease-in-out;
-}
-
-@media screen and (min-width: 1024px) {
-  .MainContent {
-    margin: 0 auto;
-    max-width: 768px;
-  }
 }
 
 /* Change the white to any color ;) */

@@ -16,13 +16,15 @@ const NavBar = (props) => {
   };
   return (
     <nav className="NavBar">
-      <NavLink className="nav-link" exact to="/">Home</NavLink>
       {(!userData.user) ?
         <>
           <NavLink className="nav-link" to={ROUTES.LOGIN}>Login</NavLink>
           <NavLink className="nav-link" to={ROUTES.SIGN_UP}>Register</NavLink>
         </> :
-        <NavLink className="nav-link" exact to={ROUTES.LOGIN} onClick={logout}>Logout {userData.user.name}</NavLink>
+        <>
+          <NavLink className="nav-link" exact to="/">Home</NavLink>
+          <NavLink className="nav-link" exact to={ROUTES.LOGIN} onClick={logout}>Logout {userData.user.name}</NavLink>
+        </>
       }
     </nav>
   )

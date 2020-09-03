@@ -30,7 +30,7 @@ const FlashMessage = props => {
           <h2>Uh Oh, Something went wrong</h2>
           <p>{props.message}</p>
         </div>
-        <button onClick={handleClick}>&times;</button>
+        <button onClick={handleClick} aria-label="Close error message alert">&times;</button>
       </div >
     );
   } else {

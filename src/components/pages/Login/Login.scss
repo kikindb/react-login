@@ -1,6 +1,37 @@
 .Login {
   text-align: center;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 0 8px #BFC5C1;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
   h1 {
-    margin-bottom: 4rem;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    color: #E53935;
+    font-weight: bold;
+    span {
+      font-size: 1rem;
+      margin-top: 2rem;
+      display: block;
+      color: #67696E;
+    }
+  }
+  .img-container {
+    flex: 60%;
+    padding: 1rem;
+    img {
+      width: 100%;
+    }
+  }
+  .form-container {
+    flex: 40%;
+  }
+  @media screen and (max-width: 767px) {
+    .form-container, .img-container {
+      flex: 100%;
+    }
   }
 }

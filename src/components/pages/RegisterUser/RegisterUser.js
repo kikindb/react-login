@@ -8,7 +8,7 @@ import userContext from '../../../context/userContext';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import FlashMessage from '../../layout/FlashMessage/FlashMessage';
-
+import signUpImg from './../../../assets/signup.svg'
 const RegisterUser = (props) => {
 
   const history = useHistory();
@@ -31,8 +31,8 @@ const RegisterUser = (props) => {
   };
 
   const validationSchema = Yup.object({
-    name: Yup.string().min(2),
-    lastName: Yup.string().min(2),
+    name: Yup.string().min(2).required('Required').matches(/^[\w][\w\s]*$/, 'Not Valid name'),
+    lastName: Yup.string().min(2).required('Required').matches(/^[\w][\w\s]*$/, 'Not valid last name'),
     email: Yup.string().required('Required').email('Invalid email format'),
     password: Yup.string().required('Required').min(5)
   });
@@ -84,67 +84,75 @@ const RegisterUser = (props) => {
 
   return (
     <div className="RegisterUser">
-      <h1>Sign Up</h1>
+      <section className="img-container">
+        <img src={signUpImg} alt="" />
+      </section>
+      <section className='form-container'>
+        <h1>
+          Sign Up
+        <span>Please register a new account</span>
+        </h1>
 
-      {(state.error !== "") ? <FlashMessage message={state.error} visible={true} /> : null}
+        {(state.error !== "") ? <FlashMessage message={state.error} visible={true} /> : null}
 
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={onSubmit}
-      >
-        {formik => {
-          return (
-            <Form>
-              <div className="form-group">
-                <Field type='text'
-                  id='name'
-                  name='name'
-                  placeholder=' '
-                  autoComplete="given-name"
-                />
-                <label htmlFor='name'>Name</label>
-                <span className="form-error"><ErrorMessage name='name' /></span>
-              </div>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={onSubmit}
+        >
+          {formik => {
+            return (
+              <Form>
+                <div className="form-group">
+                  <Field type='text'
+                    id='name'
+                    name='name'
+                    placeholder=' '
+                    autoComplete="given-name"
+                  />
+                  <label htmlFor='name'>Name</label>
+                  <span className="form-error"><ErrorMessage name='name' /></span>
+                </div>
 
-              <div className="form-group">
-                <Field type='text'
-                  id='lastName'
-                  name='lastName'
-                  placeholder=' '
-                  autoComplete="family-name"
-                />
-                <label htmlFor='lastName'>Last Name</label>
-                <span className="form-error"><ErrorMessage name='lastName' /></span>
-              </div>
+                <div className="form-group">
+                  <Field type='text'
+                    id='lastName'
+                    name='lastName'
+                    placeholder=' '
+                    autoComplete="family-name"
+                  />
+                  <label htmlFor='lastName'>Last Name</label>
+                  <span className="form-error"><ErrorMessage name='lastName' /></span>
+                </div>
 
-              <div className="form-group">
-                <Field type='email'
-                  id='email'
-                  name='email'
-                  placeholder=' '
-                  autoComplete="email"
-                />
-                <label htmlFor='email'>Email</label>
-                <span className="form-error"><ErrorMessage name='email' /></span>
-              </div>
+                <div className="form-group">
+                  <Field type='email'
+                    id='email'
+                    name='email'
+                    placeholder=' '
+                    autoComplete="email"
+                  />
+                  <label htmlFor='email'>Email</label>
+                  <span className="form-error"><ErrorMessage name='email' /></span>
+                </div>
 
-              <div className="form-group">
-                <Field type='password'
-                  id='password'
-                  name='password'
-                  placeholder=' '
-                  autoComplete="new-password"
-                />
-                <label htmlFor='password'>Password</label>
-                <span className="form-error"><ErrorMessage name='password' /></span>
-              </div>
+                <div className="form-group">
+                  <Field type='password'
+                    id='password'
+                    name='password'
+                    placeholder=' '
+                    autoComplete="new-password"
+                  />
+                  <label htmlFor='password'>Password</label>
+                  <span className="form-error"><ErrorMessage name='password' /></span>
+                </div>
 
-              <button type="submit" disabled={!(formik.dirty && formik.isValid) || (formik.isSubmitting)}>Register</button>
-            </Form>);
-        }
-        }
-      </Formik>
+                <button type="submit" disabled={!(formik.dirty && formik.isValid) || (formik.isSubmitting)}>Register</button>
+              </Form>);
+          }
+          }
+        </Formik>
+      </section>
     </div>
   )
 }
