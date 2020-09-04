@@ -7,6 +7,7 @@ import ROUTES from '../../../constants/routes';
 import userContext from '../../../context/userContext';
 
 const FacebookLogin = (props) => {
+
   const history = useHistory();
 
   const { userData, setUserData } = useContext(userContext);
@@ -31,9 +32,15 @@ const FacebookLogin = (props) => {
     console.log(response);
     if (response.status === "connected") {
       //read user data
+      console.log("FB res:", response);
+
       window.FB.api('/me?fields=id,first_name,last_name,email,picture', userData => {
         console.log(userData);
-        axios.post(API_FULL_URL + '/auth/facebook', userData)
+        axios.post(API_FULL_URL + '/auth/facebook', userData, {
+          headers: {
+            'x-access-token': response.authResponse.accessToken
+          }
+        })
           .then(function (response) {
             if (response.status === 200) {
               localStorage.setItem('userToken', response.headers['x-auth-token']);
@@ -58,6 +65,7 @@ const FacebookLogin = (props) => {
             }
           });
       });
+
     }
   };
   return (
