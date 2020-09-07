@@ -3,6 +3,7 @@ import './NavBar.scss';
 import ROUTES from './../../../../constants/routes';
 import { NavLink } from 'react-router-dom';
 import userContext from '../../../../context/userContext';
+import defUserImg from './../.././../../assets/default_user.png';
 
 const NavBar = (props) => {
   const { userData, setUserData } = useContext(userContext);
@@ -24,7 +25,7 @@ const NavBar = (props) => {
         <>
           <NavLink className="nav-link" exact to="/"><span>Home</span></NavLink>
           <NavLink className="nav-link" exact to={ROUTES.LOGIN} onClick={logout}>
-            <img src={userData.user.picture} />
+            <img src={userData.user.picture || defUserImg} />
             <span>{userData.user.name}</span>
           </NavLink>
         </>
